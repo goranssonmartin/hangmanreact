@@ -1,10 +1,11 @@
 .App {
   text-align: center;
-  
 }
-body{
+
+body {
   background-image: url(./hangmanBackground.jpg);
-  background-size: cover; /* Resize the background image to cover the entire container */
+  background-size: cover;
+  /* Resize the background image to cover the entire container */
   background-position: center;
 }
 
@@ -13,14 +14,44 @@ body{
   pointer-events: none;
 }
 
+.letterButton{
+  box-shadow: 0 5px #ff9800;
+  background-color: #ffc107;
+  border-radius:3px;
+  width:30px;
+  height:25px;
+  font-family:"Coming Soon";
+  font-weight: bold;
+  font-size: 20px;
+  color:white;
+  text-decoration: none;
+  text-align: center;
+  border:none;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-p{
-  font-family: "Coming Soon";
+.letterLine {
+  display:inline;
+  margin-left:5px;
+  margin-right:5px;
+  font-size: 40px;
 }
+
+p, h1 {
+  font-family: "Coming Soon";
+  font-size: 45px;
+  margin-bottom:0;
+}
+
+.instructionText {
+  font-size: 30px;
+  font-weight: 300;
+}
+
 .App-header {
   min-height: 100vh;
   display: flex;
@@ -30,8 +61,9 @@ p{
   font-size: calc(10px + 2vmin);
   color: brown;
 }
-#hangmanImage{
-  border:solid white 15px;
+
+#hangmanImage {
+  border: solid white 15px;
 }
 
 .App-link {
@@ -46,7 +78,9 @@ p{
     transform: rotate(360deg);
   }
 }
+
 /* latin */
+
 @font-face {
   font-family: 'Coming Soon';
   font-style: normal;
