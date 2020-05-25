@@ -3,7 +3,7 @@ import "./App.css";
 import hangmanImage from "./images/hangmanImage.jpg";
 
 const words = ["hej", "hejsan", "hallå"];
-const alphabetLetters ="abcdefghijklmnopqrstuvwxyzåäö".split("");
+const alphabetLetters = "abcdefghijklmnopqrstuvwxyzåäö".split("");
 
 var charArray = words[Math.floor(Math.random() * 3)].split("");
 
@@ -14,7 +14,11 @@ var correctWord = () => {
   return currentWord[currentWord.length - 1];
 };
 
-var buttonForEachLetter = alphabetLetters.map((elem,index) => (<button key={index} className="letterButton">{elem}</button>));
+var buttonForEachLetter = alphabetLetters.map((elem, index) => (
+  <button key={index} onClick={() => clicked(index)} className="letterButton">
+    {elem}
+  </button>
+));
 console.log(correctWord());
 
 var letterCount = charArray.map((letter, index) => (
@@ -22,7 +26,14 @@ var letterCount = charArray.map((letter, index) => (
     _
   </p>
 ));
-var numberOfGuesses=0;
+var numberOfGuesses = 0;
+
+var clicked = (index) => {
+  var buttons = document.getElementsByClassName("letterButton");
+  var clickedButton = buttons[index];
+  clickedButton.disabled = true;
+  clickedButton.style.backgroundColor = "#bdbdbd";
+};
 
 function App() {
   return (
