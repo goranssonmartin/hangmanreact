@@ -15,7 +15,11 @@ var correctWord = () => {
 };
 
 var buttonForEachLetter = alphabetLetters.map((elem, index) => (
-  <button key={index} onClick={() => clickedLetter(index)} className="letterButton">
+  <button
+    key={index}
+    onClick={() => clickedLetter(index)}
+    className="letterButton"
+  >
     {elem}
   </button>
 ));
@@ -37,10 +41,13 @@ var clickedLetter = (index) => {
 
 var resetButtons = () => {
   var buttons = Array.from(document.getElementsByClassName("letterButton"));
-  buttons.filter((button) => button.disabled === true).map((button) => {
-    button.disabled = false;
-    button.style.backgroundColor = "#ffc107";
-  });
+  buttons
+    .filter((button) => button.disabled === true)
+    .map((button) => {
+      button.disabled = false;
+      button.style.backgroundColor = "#ffc107";
+      return "buttons reset";
+    });
 };
 
 function App() {
@@ -56,7 +63,10 @@ function App() {
       {letterCount}
       <p className="instructionText">Antal gissningar: {numberOfGuesses}</p>
       {buttonForEachLetter}
-      <button onClick={() => resetButtons()}>Reset</button>
+      <br />
+      <button onClick={() => resetButtons()} id="resetButton">
+        Reset
+      </button>
     </div>
   );
 }

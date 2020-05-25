@@ -12,6 +12,21 @@ body {
   height: 40vmin;
   pointer-events: none;
 }
+#resetButton{
+  box-shadow: 0 5px #ffc107;
+  background-color: #ff9800;
+  border-radius: 5px;
+  font-family: "Coming Soon";
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+  margin:10px;
+  padding-top:0px;
+  padding-bottom:10px;
+  text-align: center;
+  border: none;
+}
 
 .letterButton {
   box-shadow: 0 5px #ff9800;
