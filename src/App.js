@@ -3,19 +3,21 @@ import "./App.css";
 import hangmanImage from "./images/hangmanImage.jpg";
 
 const words = ["hej", "hejsan", "hallå"];
-var charArray = () => {
-  return words[Math.floor(Math.random() * 3)].split("");
-};
+const alphabetLetters ="abcdefghijklmnopqrstuvwxyzåäö".split("");
+
+var charArray = words[Math.floor(Math.random() * 3)].split("");
 
 var correctWord = () => {
   var currentWord = "";
-  var arrayOfCharacters = charArray();
+  var arrayOfCharacters = charArray;
   currentWord = arrayOfCharacters.map((elem) => (currentWord += elem));
   return currentWord[currentWord.length - 1];
 };
+
+var buttonForEachLetter = alphabetLetters.map((elem,index) => (<button key={index} className="letterButton">{elem}</button>));
 console.log(correctWord());
 
-var letterCount = charArray().map((letter, index) => (
+var letterCount = charArray.map((letter, index) => (
   <p className="letterLine" key={index}>
     _
   </p>
@@ -34,7 +36,7 @@ function App() {
       <br />
       {letterCount}
       <p className="instructionText">Antal gissningar: {numberOfGuesses}</p>
-      <button className="letterButton">a</button>
+      {buttonForEachLetter}
     </div>
   );
 }
