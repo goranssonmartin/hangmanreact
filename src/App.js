@@ -15,7 +15,7 @@ var correctWord = () => {
 };
 
 var buttonForEachLetter = alphabetLetters.map((elem, index) => (
-  <button key={index} onClick={() => clicked(index)} className="letterButton">
+  <button key={index} onClick={() => clickedLetter(index)} className="letterButton">
     {elem}
   </button>
 ));
@@ -28,11 +28,19 @@ var letterCount = charArray.map((letter, index) => (
 ));
 var numberOfGuesses = 0;
 
-var clicked = (index) => {
+var clickedLetter = (index) => {
   var buttons = document.getElementsByClassName("letterButton");
   var clickedButton = buttons[index];
   clickedButton.disabled = true;
   clickedButton.style.backgroundColor = "#bdbdbd";
+};
+
+var resetButtons = () => {
+  var buttons = Array.from(document.getElementsByClassName("letterButton"));
+  buttons.filter((button) => button.disabled === true).map((button) => {
+    button.disabled = false;
+    button.style.backgroundColor = "#ffc107";
+  });
 };
 
 function App() {
@@ -48,6 +56,7 @@ function App() {
       {letterCount}
       <p className="instructionText">Antal gissningar: {numberOfGuesses}</p>
       {buttonForEachLetter}
+      <button onClick={() => resetButtons()}>Reset</button>
     </div>
   );
 }
