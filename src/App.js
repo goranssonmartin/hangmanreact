@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import hangmanImage from "./images/hangmanImage.jpg";
 import ReactDOM from "react-dom";
-import { charArray, correcWord } from "./words.js";
+import { charArray} from "./words.js";
 
 const alphabetLetters = "abcdefghijklmnopqrstuvwxyzåäö".split("");
 let randomWord = charArray();
@@ -10,13 +10,12 @@ let randomWord = charArray();
 const buttonForEachLetter = alphabetLetters.map((letter, index) => (
   <button
     key={index}
-    onClick={() => clickedLetter(index)}
+    onClick={()=>onClickedLetter(index)}
     className="letterButton"
   >
     {letter}
   </button>
 ));
-console.log(correcWord(randomWord));
 
 let letterCount = randomWord.map((letter, index) => (
   <p className="letterLine" key={index}>
@@ -34,7 +33,7 @@ const renderPageAgain = () => {
   );
 };
 
-const clickedLetter = (index) => {
+const onClickedLetter = (index) => {
   const buttons = document.getElementsByClassName("letterButton");
   const clickedButton = buttons[index];
   clickedButton.disabled = true;
@@ -43,7 +42,7 @@ const clickedLetter = (index) => {
   renderPageAgain();
 };
 
-const resetButtons = () => {
+const onResetGame = () => {
   const buttons = Array.from(document.getElementsByClassName("letterButton"));
   buttons
     .filter((button) => button.disabled === true)
@@ -61,8 +60,7 @@ const resetButtons = () => {
       _
     </p>
   ));
-  let correcWordToString = randomWord.join("");
-  console.log(correcWordToString);
+  //let correcWordToString = randomWord.join("");
 };
 
 function App() {
@@ -70,8 +68,7 @@ function App() {
     <div className="App">
       <h1>Hänga gubbe</h1>
       <p className="instructionText">
-        Gissa vilket ord det är med hjälp av bokstäverna nedan. Du har åtta
-        gissningar.
+        Gissa vilket det gömda ordet är med hjälp av bokstäverna nedan.
       </p>
       <img src={hangmanImage} alt="Hangman" id="hangmanImage"></img>
       <br />
@@ -79,7 +76,7 @@ function App() {
       <p className="instructionText">Antal gissningar: {numberOfGuesses}</p>
       {buttonForEachLetter}
       <br />
-      <button onClick={resetButtons} id="resetButton">
+      <button onClick={onResetGame} id="resetButton">
         Reset
       </button>
     </div>
