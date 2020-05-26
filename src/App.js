@@ -1,46 +1,50 @@
 import React from "react";
 import "./App.css";
 import hangmanImage from "./images/hangmanImage.jpg";
+import ReactDOM from "react-dom";
+import { charArray, correcWord } from "./words.js";
 
-const words = ["hej", "hejsan", "hallå"];
 const alphabetLetters = "abcdefghijklmnopqrstuvwxyzåäö".split("");
+let randomWord = charArray();
 
-var charArray = words[Math.floor(Math.random() * 3)].split("");
-
-var correctWord = () => {
-  var currentWord = "";
-  var arrayOfCharacters = charArray;
-  currentWord = arrayOfCharacters.map((elem) => (currentWord += elem));
-  return currentWord[currentWord.length - 1];
-};
-
-var buttonForEachLetter = alphabetLetters.map((elem, index) => (
+const buttonForEachLetter = alphabetLetters.map((letter, index) => (
   <button
     key={index}
     onClick={() => clickedLetter(index)}
     className="letterButton"
   >
-    {elem}
+    {letter}
   </button>
 ));
-console.log(correctWord());
+console.log(correcWord(randomWord));
 
-var letterCount = charArray.map((letter, index) => (
+let letterCount = randomWord.map((letter, index) => (
   <p className="letterLine" key={index}>
     _
   </p>
 ));
-var numberOfGuesses = 0;
+let numberOfGuesses = 0;
 
-var clickedLetter = (index) => {
-  var buttons = document.getElementsByClassName("letterButton");
-  var clickedButton = buttons[index];
-  clickedButton.disabled = true;
-  clickedButton.style.backgroundColor = "#bdbdbd";
+const renderPageAgain = () => {
+  ReactDOM.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+    document.getElementById("root")
+  );
 };
 
-var resetButtons = () => {
-  var buttons = Array.from(document.getElementsByClassName("letterButton"));
+const clickedLetter = (index) => {
+  const buttons = document.getElementsByClassName("letterButton");
+  const clickedButton = buttons[index];
+  clickedButton.disabled = true;
+  clickedButton.style.backgroundColor = "#bdbdbd";
+  numberOfGuesses++;
+  renderPageAgain();
+};
+
+const resetButtons = () => {
+  const buttons = Array.from(document.getElementsByClassName("letterButton"));
   buttons
     .filter((button) => button.disabled === true)
     .map((button) => {
@@ -48,6 +52,17 @@ var resetButtons = () => {
       button.style.backgroundColor = "#ffc107";
       return "buttons reset";
     });
+  numberOfGuesses = 0;
+  renderPageAgain();
+  randomWord = charArray();
+
+  letterCount = randomWord.map((letter, index) => (
+    <p className="letterLine" key={index}>
+      _
+    </p>
+  ));
+  let correcWordToString = randomWord.join("");
+  console.log(correcWordToString);
 };
 
 function App() {
@@ -56,7 +71,7 @@ function App() {
       <h1>Hänga gubbe</h1>
       <p className="instructionText">
         Gissa vilket ord det är med hjälp av bokstäverna nedan. Du har åtta
-        gissningar
+        gissningar.
       </p>
       <img src={hangmanImage} alt="Hangman" id="hangmanImage"></img>
       <br />
@@ -64,7 +79,7 @@ function App() {
       <p className="instructionText">Antal gissningar: {numberOfGuesses}</p>
       {buttonForEachLetter}
       <br />
-      <button onClick={() => resetButtons()} id="resetButton">
+      <button onClick={resetButtons} id="resetButton">
         Reset
       </button>
     </div>
