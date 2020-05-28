@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import hangmanImage from "./images/hangmanImage.jpg";
 import ReactDOM from "react-dom";
-import { charArray} from "./words.js";
+import { charArray } from "./words.js";
 
 const alphabetLetters = "abcdefghijklmnopqrstuvwxyzåäö".split("");
 let randomWord = charArray();
@@ -10,7 +10,7 @@ let randomWord = charArray();
 const buttonForEachLetter = alphabetLetters.map((letter, index) => (
   <button
     key={index}
-    onClick={()=>onClickedLetter(index)}
+    onClick={() => onClickedLetter(index)}
     className="letterButton"
   >
     {letter}
@@ -44,13 +44,11 @@ const onClickedLetter = (index) => {
 
 const onResetGame = () => {
   const buttons = Array.from(document.getElementsByClassName("letterButton"));
-  buttons
-    .filter((button) => button.disabled === true)
-    .map((button) => {
-      button.disabled = false;
-      button.style.backgroundColor = "#ffc107";
-      return "buttons reset";
-    });
+  const disabledButtons = buttons.filter((button) => button.disabled === true);
+  disabledButtons.forEach((elem) => {
+    elem.disabled = false;
+    elem.style.backgroundColor = "#ffc107";
+  });
   numberOfGuesses = 0;
   renderPageAgain();
   randomWord = charArray();
@@ -60,7 +58,6 @@ const onResetGame = () => {
       _
     </p>
   ));
-  //let correcWordToString = randomWord.join("");
 };
 
 function App() {
@@ -74,7 +71,7 @@ function App() {
       <br />
       {letterCount}
       <p className="instructionText">Antal gissningar: {numberOfGuesses}</p>
-      {buttonForEachLetter}
+      <div id="letterButtonDiv">{buttonForEachLetter}</div>
       <br />
       <button onClick={onResetGame} id="resetButton">
         Reset
