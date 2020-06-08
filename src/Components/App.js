@@ -14,7 +14,7 @@ function App() {
   const buttonForEachLetter = alphabetLetters.map((letter, index) => {
     return (
       <Button
-        buttonKey={index}
+        key={index}
         onClickFunction={() => onClickedLetter(index)}
         classNameOfButton={"letterButton"}
         buttonValue={letter}
@@ -47,7 +47,7 @@ function App() {
       </p>
     ));
   };
-  
+
   return (
     <div className="App">
       <h1>Hänga gubbe</h1>
