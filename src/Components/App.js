@@ -9,8 +9,9 @@ function App() {
   const disabledButton = alphabetLetters.map((letter) => false);
 
   const [disabledButtons, updateButton] = useState(disabledButton);
+  const [randomWord, updateWord] = useState(charArray());
+  const [numberOfGuesses, updateGuesses] = useState(0);
 
-  let randomWord = charArray();
   const buttonForEachLetter = alphabetLetters.map((letter, index) => {
     return (
       <Button
@@ -28,18 +29,18 @@ function App() {
       _
     </p>
   ));
-  let numberOfGuesses = 0;
 
   const onClickedLetter = (index) => {
     let newArray = [...disabledButtons];
     newArray[index] = true;
     updateButton(newArray);
-    numberOfGuesses++;
+    let currentGuess = numberOfGuesses+1;
+    updateGuesses(currentGuess);
   };
 
   const onResetGame = () => {
-    numberOfGuesses = 0;
-    randomWord = charArray();
+    updateGuesses(0);
+    updateWord(charArray());
     updateButton(disabledButton);
     letterCount = randomWord.map((letter, index) => (
       <p className="letterLine" key={index}>
