@@ -1,66 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
 import "../Styling/App.css";
 import hangmanImage from "../images/hangmanImage.jpg";
-import ReactDOM from "react-dom";
 import { charArray } from "../words.js";
 import Button from "./Button";
 
-const alphabetLetters = "abcdefghijklmnopqrstuvwxyzåäö".split("");
-let randomWord = charArray();
+function App() {
+  const alphabetLetters = "abcdefghijklmnopqrstuvwxyzåäö".split("");
+  const disabledButton = alphabetLetters.map((letter) => false);
 
-const buttonForEachLetter = alphabetLetters.map((letter, index) => (
-  <Button
-    buttonKey={index}
-    onClickFunction={()=>onClickedLetter(index)}
-    classNameOfButton={"letterButton"}
-    buttonValue={letter}
-  />
-));
+  const [disabledButtons, updateButton] = useState(disabledButton);
 
-let letterCount = randomWord.map((letter, index) => (
-  <p className="letterLine" key={index}>
-    _
-  </p>
-));
-let numberOfGuesses = 0;
-
-const renderPageAgain = () => {
-  ReactDOM.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
-    document.getElementById("root")
-  );
-};
-
-const onClickedLetter = (index) => {
-  const buttons = document.getElementsByClassName("letterButton");
-  const clickedButton = buttons[index];
-  clickedButton.disabled = true;
-  clickedButton.style.backgroundColor = "#bdbdbd";
-  numberOfGuesses++;
-  renderPageAgain();
-};
-
-const onResetGame = () => {
-  const buttons = Array.from(document.getElementsByClassName("letterButton"));
-  const disabledButtons = buttons.filter((button) => button.disabled === true);
-  disabledButtons.forEach((elem) => {
-    elem.disabled = false;
-    elem.style.backgroundColor = "#ffc107";
+  let randomWord = charArray();
+  const buttonForEachLetter = alphabetLetters.map((letter, index) => {
+    return (
+      <Button
+        buttonKey={index}
+        onClickFunction={() => onClickedLetter(index)}
+        classNameOfButton={"letterButton"}
+        buttonValue={letter}
+        isDisabled={disabledButtons[index]}
+      />
+    );
   });
-  numberOfGuesses = 0;
-  renderPageAgain();
-  randomWord = charArray();
 
-  letterCount = randomWord.map((letter, index) => (
+  let letterCount = randomWord.map((letter, index) => (
     <p className="letterLine" key={index}>
       _
     </p>
   ));
-};
+  let numberOfGuesses = 0;
 
-function App() {
+  const onClickedLetter = (index) => {
+    let newArray = [...disabledButtons];
+    newArray[index] = true;
+    updateButton(newArray);
+    numberOfGuesses++;
+  };
+
+  const onResetGame = () => {
+    numberOfGuesses = 0;
+    randomWord = charArray();
+    updateButton(disabledButton);
+    letterCount = randomWord.map((letter, index) => (
+      <p className="letterLine" key={index}>
+        _
+      </p>
+    ));
+  };
+  
   return (
     <div className="App">
       <h1>Hänga gubbe</h1>
@@ -73,9 +60,11 @@ function App() {
       <p className="instructionText">Antal gissningar: {numberOfGuesses}</p>
       <div id="letterButtonDiv">{buttonForEachLetter}</div>
       <br />
-      <button onClick={onResetGame} id="resetButton">
-        Reset
-      </button>
+      <Button
+        onClickFunction={onResetGame}
+        classNameOfButton="resetButton"
+        buttonValue="Reset"
+      />
     </div>
   );
 }

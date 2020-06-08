@@ -11,7 +11,7 @@ body {
   margin: 0 auto;
 }
 
-#resetButton{
+.resetButton{
   box-shadow: 0 5px #ffc107;
   background-color: #ff9800;
   border-radius: 5px;
@@ -30,6 +30,24 @@ body {
 .letterButton {
   box-shadow: 0 5px #ff9800;
   background-color: #ffc107;
+  border-radius: 5px;
+  width: 30px;
+  height: 35px;
+  font-family: "Coming Soon";
+  font-weight: bold;
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+  margin:5px;
+  padding-top:0px;
+  padding-bottom:10px;
+  text-align: center;
+  border: none;
+}
+
+.letterButton:disabled {
+  box-shadow: 0 5px #ff9800;
+  background-color: #bdbdbd;
   border-radius: 5px;
   width: 30px;
   height: 35px;

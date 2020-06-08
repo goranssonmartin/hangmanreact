@@ -7,6 +7,7 @@ class Button extends Component {
         onClick={this.props.onClickFunction}
         key={this.props.buttonKey}
         className={this.props.classNameOfButton}
+        disabled={this.props.isDisabled}
       >
         {this.props.buttonValue}
       </button>
