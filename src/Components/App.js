@@ -1,20 +1,20 @@
 import React from "react";
-import "./App.css";
-import hangmanImage from "./images/hangmanImage.jpg";
+import "../Styling/App.css";
+import hangmanImage from "../images/hangmanImage.jpg";
 import ReactDOM from "react-dom";
-import { charArray } from "./words.js";
+import { charArray } from "../words.js";
+import Button from "./Button";
 
 const alphabetLetters = "abcdefghijklmnopqrstuvwxyzåäö".split("");
 let randomWord = charArray();
 
 const buttonForEachLetter = alphabetLetters.map((letter, index) => (
-  <button
-    key={index}
-    onClick={() => onClickedLetter(index)}
-    className="letterButton"
-  >
-    {letter}
-  </button>
+  <Button
+    buttonKey={index}
+    onClickFunction={()=>onClickedLetter(index)}
+    classNameOfButton={"letterButton"}
+    buttonValue={letter}
+  />
 ));
 
 let letterCount = randomWord.map((letter, index) => (
