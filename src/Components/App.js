@@ -58,6 +58,10 @@ function App() {
     });
     if (swapped) {
       updateFoundLetters(currentWord);
+      if (JSON.stringify([...randomWord]) === JSON.stringify(currentWord)) {
+        document.getElementById("letterButtonDiv").style.display = "none";
+        document.getElementById("youWonDiv").style.display = "block";
+      }
       return swapped;
     }
     return swapped;
@@ -74,8 +78,10 @@ function App() {
       if (currentGuess === 6) {
         document.getElementById("letterButtonDiv").style.display = "none";
         document.getElementById("youLostDiv").style.display = "block";
+        updateFoundLetters([...randomWord]);
       }
     }
+      
   };
 
   const onResetGame = () => {
