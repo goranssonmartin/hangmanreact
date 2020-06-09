@@ -11,6 +11,14 @@ body {
   margin: 0 auto;
 }
 
+#youLostDiv{
+  display:none;
+}
+
+#youWonDiv{
+  display:none;
+}
+
 .resetButton{
   box-shadow: 0 5px #ffc107;
   background-color: #ff9800;
